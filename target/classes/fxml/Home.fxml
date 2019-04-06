@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane fx:id="anchore" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="custom-pane" stylesheets="/styles/dark-theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.PFE.GUI.HomeController">
+    <children>
+        <JFXDrawer fx:id="drawer" defaultDrawerSize="150.0" resizableOnDrag="true" resizeContent="true" styleClass="jfx-drawer" />
+        <AnchorPane fx:id="rootAnchorPane" prefHeight="200.0" prefWidth="200.0">
+            <children>
+                <AnchorPane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+               <children>
+                  <AnchorPane layoutX="1.0" prefHeight="577.0" prefWidth="149.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="577.0" prefWidth="176.0">
+                           <children>
+                              <JFXButton alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" onAction="#school" prefHeight="90.0" prefWidth="172.0" styleClass="toolbar-button" text="School">
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="/icons/icons8_School_50px_1.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
+                              <JFXButton onAction="#internship" prefHeight="90.0" prefWidth="169.0" styleClass="toolbar-button" text="Internships Director">
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="/icons/icons8_Business_Building_50px.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
+                              <JFXButton onAction="#head" prefHeight="90.0" prefWidth="172.0" styleClass="toolbar-button" text="Head of department">
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="/icons/icons8_Manager_50px.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
+                  <AnchorPane fx:id="adminCentralAnchore" layoutX="177.0" layoutY="12.0" prefHeight="550.0" prefWidth="640.0" />
+               </children>
+                </AnchorPane>
+                <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#handleMenuSettings" text="Settings" />
+                                <MenuItem mnemonicParsing="false" onAction="#handleMenuClose" text="Exit" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Add">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#MenuAddSite" text="Add Site" />
+                                <MenuItem mnemonicParsing="false" onAction="#menuAddDep" text="Add Departement" />
+                        <MenuItem mnemonicParsing="false" onAction="#MenuAddOption" text="Add Option" />
+                        <MenuItem mnemonicParsing="false" onAction="#MenuAddEmployee" text="Add Employee" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="View">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#intenshipsDirectorList" text="Internships Director List" />
+                                <MenuItem mnemonicParsing="false" onAction="#EmployeeList" text="Employee List" />
+                                <MenuItem mnemonicParsing="false" onAction="#headDepList" text="Head of departement List" />
+                                <MenuItem mnemonicParsing="false" onAction="#handleMenuFullScreen" text="Full Screen" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Notify">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#sendNotif" text="Send notifications" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#handleAboutMenu" text="About" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+            </children>
+        </AnchorPane>
+    </children>
+</StackPane>

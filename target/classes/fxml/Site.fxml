@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.net.URL?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" stylesheets="/styles/dark-theme.css" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="tn.esprit.PFE.GUI.SiteController">
+   <children>
+      <Text layoutX="237.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create New Site">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <JFXTextField fx:id="name" layoutX="83.0" layoutY="142.0" prefHeight="33.0" prefWidth="272.0" promptText="Name">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="adress" layoutX="83.0" layoutY="217.0" prefHeight="33.0" prefWidth="272.0" promptText="Address">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXButton layoutX="274.0" layoutY="320.0" onAction="#newSite" text="Create" />
+   </children>
+</AnchorPane>

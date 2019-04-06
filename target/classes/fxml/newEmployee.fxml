@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" stylesheets="/styles/dark-theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.PFE.GUI.newEmployeeController">
+   <children>
+      <Text fill="#ffdf27" layoutX="192.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create New Employee">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Text>
+      <JFXComboBox fx:id="siteCombo" layoutX="55.0" layoutY="104.0" onAction="#Site" prefHeight="33.0" prefWidth="180.0" promptText="Select a Site" unFocusColor="#ffdf27" />
+      <JFXComboBox fx:id="DepCombo" layoutX="334.0" layoutY="104.0" onAction="#Deparatement" prefHeight="33.0" prefWidth="180.0" promptText="Select a Departement" unFocusColor="#ffdf27" />
+      
+      <JFXTextField fx:id="name" layoutX="55.0" layoutY="178.0" prefHeight="33.0" prefWidth="180.0" promptText="Name">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="lastName" layoutX="334.0" layoutY="178.0" prefHeight="33.0" prefWidth="180.0" promptText="Last name">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="username" layoutX="55.0" layoutY="247.0" prefHeight="33.0" prefWidth="180.0" promptText="Username">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="password" layoutX="327.0" layoutY="247.0" prefHeight="33.0" prefWidth="180.0" promptText="Identifier">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="email" layoutX="55.0" layoutY="315.0" prefHeight="33.0" prefWidth="180.0" promptText="Email">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXComboBox fx:id="roleCombo" layoutX="334.0" layoutY="322.0" prefHeight="33.0" prefWidth="180.0" promptText="Select a Role" unFocusColor="#ffdf27" />
+      <JFXButton layoutX="259.0" layoutY="361.0" onAction="#newEmployee" text="Create" />
+   </children>
+</AnchorPane>
