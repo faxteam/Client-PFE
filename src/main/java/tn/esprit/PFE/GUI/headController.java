@@ -6,11 +6,8 @@
 package tn.esprit.PFE.GUI;
 
 import com.jfoenix.controls.JFXButton;
-import entities.Departement;
 import entities.Employee;
-import iservice.DepartementFacadeRemote;
 import iservice.EmployeeFacadeRemote;
-import iservice.OptFacadeRemote;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;

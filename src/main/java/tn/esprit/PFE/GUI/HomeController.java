@@ -5,7 +5,10 @@
  */
 package tn.esprit.PFE.GUI;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
+import entities.Admin;
+import entities.Employee;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,12 +16,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import static tn.esprit.PFE.Main.MainApp.admin;
+import static tn.esprit.PFE.Main.MainApp.employee;
 import tn.esprit.PFE.Utils.Router.FXRouter;
 
 /**
@@ -36,6 +44,16 @@ public class HomeController implements Initializable {
     private StackPane anchore;
     @FXML
     private AnchorPane adminCentralAnchore;
+    @FXML
+    private ImageView disconnect;
+    @FXML
+    private JFXButton btnSchool;
+    @FXML
+    private JFXButton btnInternshipDirector;
+    @FXML
+    private JFXButton btnHEadOfDepartement;
+    @FXML
+    private Menu addMenuButton;
 
     /**
      * Initializes the controller class.
@@ -45,15 +63,36 @@ public class HomeController implements Initializable {
         // TODO
         System.out.println("Admin conncted :: " + admin);
         FXRouter.when("school", "School.fxml");
+        FXRouter.when("internshipDirector", "HomeIntenDirector.fxml");
         FXRouter.when("head", "headOfDepartement.fxml");
         FXRouter.setRouteContainer("school", adminCentralAnchore);
         FXRouter.setRouteContainer("head", adminCentralAnchore);
-        
-        try {
-            FXRouter.goTo("school");
-        } catch (IOException ex) {
-            System.out.println("unable to open shcool anchore " + ex.getMessage());
+        FXRouter.setRouteContainer("internshipDirector", adminCentralAnchore);
+
+        if (admin != null) {
+            try {
+                FXRouter.goTo("school");
+            } catch (IOException ex) {
+                System.out.println("unable to open shcool anchore " + ex.getMessage());
+            }
         }
+
+        if (employee != null) {
+            try {
+                FXRouter.goTo("internshipDirector");
+            } catch (IOException ex) {
+                System.out.println("unable to open shcool anchore " + ex.getMessage());
+            }
+            btnSchool.setVisible(false);
+            btnSchool.setDisable(true);
+            btnHEadOfDepartement.setVisible(false);
+            btnHEadOfDepartement.setDisable(true);
+            btnInternshipDirector.setVisible(false);
+            btnInternshipDirector.setDisable(true);
+            addMenuButton.setVisible(false);
+            addMenuButton.setDisable(true);
+        }
+
     }
 
     @FXML
@@ -130,7 +169,7 @@ public class HomeController implements Initializable {
             stage.setTitle("Adding new Site");
             stage.setScene(scene);
             stage.show();
-            
+
         } catch (Throwable e) {
             System.out.println("error " + e.getMessage());
             System.out.println("cause " + e.getCause());
@@ -141,7 +180,7 @@ public class HomeController implements Initializable {
 
     @FXML
     private void MenuAddOption(ActionEvent event) {
-         try {
+        try {
 
             String file = "/fxml/newOption.fxml";
             FXMLLoader loader = new FXMLLoader();
@@ -174,13 +213,32 @@ public class HomeController implements Initializable {
 
     @FXML
     private void sendNotif(ActionEvent event) {
+        if (employee != null) {
+            try {
+
+                String file = "/fxml/sendNotifToStudent.fxml";
+                FXMLLoader loader = new FXMLLoader();
+                final Parent root = (Parent) loader.load(getClass().getResourceAsStream(file));
+
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setTitle("Home Admin");
+                stage.setScene(scene);
+                stage.show();
+            } catch (Throwable e) {
+                System.out.println("error " + e.getMessage());
+                System.out.println("cause " + e.getCause());
+                System.out.println("local " + e.getLocalizedMessage());
+                System.out.println("stack trace " + e.getStackTrace());
+            }
+        }
     }
 
     @FXML
     private void MenuAddEmployee(ActionEvent event) {
-         try {
+        try {
 
-            String file = "/fxml/newEmployee.fxml";
+            String file = "/fxml/sendNotifToStudent.fxml";
             FXMLLoader loader = new FXMLLoader();
             final Parent root = (Parent) loader.load(getClass().getResourceAsStream(file));
 
@@ -217,6 +275,33 @@ public class HomeController implements Initializable {
         } catch (IOException ex) {
             System.out.println("unable to open shcool anchore " + ex.getMessage());
         }
+    }
+
+    @FXML
+    private void discconnectAction(MouseEvent event) {
+        employee = new Employee();
+        admin = new Admin();
+
+        try {
+
+            String file = "/fxml/Login.fxml";
+            FXMLLoader loader = new FXMLLoader();
+            final Parent root = (Parent) loader.load(getClass().getResourceAsStream(file));
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Login");
+            stage.setScene(scene);
+
+            final Node source = (Node) event.getSource();
+            final Stage stages = (Stage) source.getScene().getWindow();
+            stages.close();
+
+            stage.show();
+        } catch (Throwable e) {
+            System.out.println("error " + e.getMessage());
+        }
+
     }
 
 }

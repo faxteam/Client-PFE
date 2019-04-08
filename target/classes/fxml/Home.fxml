@@ -8,6 +8,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -20,9 +21,16 @@
                <children>
                   <AnchorPane layoutX="1.0" prefHeight="577.0" prefWidth="149.0">
                      <children>
-                        <VBox alignment="CENTER" prefHeight="577.0" prefWidth="176.0">
+                        <VBox alignment="TOP_CENTER" prefHeight="577.0" prefWidth="176.0">
                            <children>
-                              <JFXButton alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" onAction="#school" prefHeight="90.0" prefWidth="172.0" styleClass="toolbar-button" text="School">
+                              <HBox prefHeight="39.0" prefWidth="176.0" />
+                              <ImageView fx:id="disconnect" fitHeight="49.0" fitWidth="71.0" onMouseClicked="#discconnectAction" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="/icons/icons8_Login_Rounded_50px.png" />
+                                 </image>
+                              </ImageView>
+                              <HBox prefHeight="116.0" prefWidth="176.0" />
+                              <JFXButton fx:id="btnSchool" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" onAction="#school" prefHeight="90.0" prefWidth="172.0" styleClass="toolbar-button" text="School">
                                  <graphic>
                                     <ImageView fitHeight="30.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -31,7 +39,7 @@
                                     </ImageView>
                                  </graphic>
                               </JFXButton>
-                              <JFXButton onAction="#internship" prefHeight="90.0" prefWidth="169.0" styleClass="toolbar-button" text="Internships Director">
+                              <JFXButton fx:id="btnInternshipDirector" onAction="#internship" prefHeight="90.0" prefWidth="169.0" styleClass="toolbar-button" text="Internships Director">
                                  <graphic>
                                     <ImageView fitHeight="30.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -40,7 +48,7 @@
                                     </ImageView>
                                  </graphic>
                               </JFXButton>
-                              <JFXButton onAction="#head" prefHeight="90.0" prefWidth="172.0" styleClass="toolbar-button" text="Head of department">
+                              <JFXButton fx:id="btnHEadOfDepartement" onAction="#head" prefHeight="90.0" prefWidth="172.0" styleClass="toolbar-button" text="Head of department">
                                  <graphic>
                                     <ImageView fitHeight="30.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -63,7 +71,7 @@
                                 <MenuItem mnemonicParsing="false" onAction="#handleMenuClose" text="Exit" />
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Add">
+                        <Menu fx:id="addMenuButton" mnemonicParsing="false" text="Add">
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#MenuAddSite" text="Add Site" />
                                 <MenuItem mnemonicParsing="false" onAction="#menuAddDep" text="Add Departement" />

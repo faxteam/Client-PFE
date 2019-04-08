@@ -18,7 +18,7 @@
          <children>
             <TabPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="414.0" prefWidth="581.0">
                <tabs>
-                  <Tab closable="false" styleClass="settings-tab" text="Basic">
+                  <Tab fx:id="schoolDataTab" closable="false" styleClass="settings-tab" text="Basic">
                      <content>
                         <AnchorPane id="AnchorPane" prefHeight="304.0" prefWidth="402.0" styleClass="custom-pane">
                            <children>
@@ -56,7 +56,7 @@
                         </AnchorPane>
                      </content>
                   </Tab>
-                  <Tab closable="false" styleClass="settings-tab" text="Mail Server">
+                  <Tab fx:id="mailTab" closable="false" styleClass="settings-tab" text="Mail Server">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="custom-pane">
                            <children>
@@ -84,7 +84,7 @@
                                     </JFXPasswordField>
                                     <HBox alignment="CENTER" prefHeight="88.0" prefWidth="551.0" spacing="25.0">
                                        <children>
-                                          <JFXButton onAction="#handleTestMailAction" prefHeight="43.0" prefWidth="183.0" text="Send Test Mail" />
+                                          <JFXButton fx:id="btnTest" onAction="#handleTestMailAction" prefHeight="43.0" prefWidth="183.0" text="Send Test Mail" />
                                           <JFXButton onAction="#saveMailServerConfuration" prefHeight="43.0" prefWidth="100.0" text="Save" />
                                        </children>
                                        <VBox.margin>
@@ -100,7 +100,7 @@
                         </AnchorPane>
                      </content>
                   </Tab>
-                  <Tab closable="false" styleClass="settings-tab" text="Import">
+                  <Tab fx:id="importTab" closable="false" styleClass="settings-tab" text="Import">
                      <content>
                         <AnchorPane id="AnchorPane" prefHeight="304.0" prefWidth="402.0" styleClass="custom-pane">
                            <children>

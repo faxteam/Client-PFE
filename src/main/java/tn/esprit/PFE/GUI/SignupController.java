@@ -67,7 +67,7 @@ public class SignupController implements Initializable {
     }
 
     @FXML
-    private void SignUp(ActionEvent event) {
+    private void SignUp(ActionEvent event) throws IOException {
 
         error.setText("");
         String firstN = name.getText();
@@ -139,9 +139,10 @@ public class SignupController implements Initializable {
 
         alert.showAndWait();
 
+        FXRouter.goTo("login");
         //System.out.println();
     }
-
+ 
     @FXML
     private void Reset(ActionEvent event) {
         lastName.setText("");

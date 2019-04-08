@@ -9,7 +9,6 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import entities.Admin;
 import iservice.AutheticatorInterfaceRemote;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,7 +22,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import static tn.esprit.PFE.Main.MainApp.PATH;
 import static tn.esprit.PFE.Main.MainApp.admin;
 import tn.esprit.PFE.Utils.Proxy;
 import tn.esprit.PFE.Utils.Router.FXRouter;
@@ -55,6 +53,9 @@ public class LoginController implements Initializable {
         FXRouter.when("home", "Home.fxml");
         FXRouter.setRouteContainer("signup", anchore);
         FXRouter.setRouteContainer("home", anchore);
+
+        FXRouter.when("loginEmployee", "LoginEmployee.fxml");
+        FXRouter.setRouteContainer("loginEmployee", anchore);
 
     }
 
@@ -99,6 +100,11 @@ public class LoginController implements Initializable {
                 Stage stage = new Stage();
                 stage.setTitle("Home Admin");
                 stage.setScene(scene);
+
+                final Node source = (Node) event.getSource();
+                final Stage stages = (Stage) source.getScene().getWindow();
+                stages.close();
+
                 stage.show();
             } catch (Throwable e) {
                 System.out.println("error " + e.getMessage());
@@ -133,6 +139,11 @@ public class LoginController implements Initializable {
             System.out.println("stack trace " + e.getStackTrace());
         }*/
         FXRouter.goTo("signup");
+    }
+
+    @FXML
+    private void loginAsEmployee(ActionEvent event) throws IOException {
+        FXRouter.goTo("loginEmployee");
     }
 
 }

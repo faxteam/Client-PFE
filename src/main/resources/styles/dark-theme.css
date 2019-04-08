@@ -10,6 +10,7 @@
     -fx-blue: #1976D2;
     -fx-red: #FF0000;
     -fx-color-1:#1976D2;
+    -fx-text-color : #EECE82;
 }
 
 .root{
@@ -38,10 +39,18 @@
 
 .text-field
 {
-    -fx-text-fill: -fx-primarytext;
+    -fx-text-fill: -fx-text-color;
     -fx-font-size : 12pt;
     -jfx-focus-color: -fx-secondary;
-    -fx-text-fill: derive(-fx-secondary, 20%);
+   /* -fx-text-fill: derive(-fx-secondary, 20%);*/
+}
+
+.text-area
+{
+    -fx-text-fill: -fx-text-color;
+    -fx-font-size : 12pt;
+    -jfx-focus-color: -fx-secondary;
+   /* -fx-text-fill: derive(-fx-secondary, 20%);*/
 }
 
 /*Login Screen Specific*/

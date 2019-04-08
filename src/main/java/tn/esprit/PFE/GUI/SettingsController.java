@@ -5,6 +5,7 @@
  */
 package tn.esprit.PFE.GUI;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextField;
@@ -32,11 +33,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javax.mail.MessagingException;
 import static tn.esprit.PFE.Main.MainApp.admin;
+import static tn.esprit.PFE.Main.MainApp.employee;
 import tn.esprit.PFE.Utils.MailSender;
 import tn.esprit.PFE.Utils.Proxy;
 import tn.esprit.PFE.Utils.Router.FXRouter;
@@ -70,6 +73,14 @@ public class SettingsController implements Initializable {
     private final ObservableList<Student> dataList = FXCollections.observableArrayList();
     @FXML
     private AnchorPane anchore;
+    @FXML
+    private Tab schoolDataTab;
+    @FXML
+    private Tab mailTab;
+    @FXML
+    private Tab importTab;
+    @FXML
+    private JFXButton btnTest;
 
     /**
      * Initializes the controller class.
@@ -77,16 +88,35 @@ public class SettingsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        schoolName.setText(admin.getSchool().getName());
 
         Proxy proxy = new Proxy();
         MailServerFacadeLocal service = proxy.getMailServer();
-        MailServer server = service.findByMailer(admin);
-        if (server.getId() != 0) {
-            emailAddress.setText(server.getEmail());
-            emailPassword.setText(server.getPassword());
+
+        if (employee != null) {
+            importTab.getTabPane().getTabs().remove(importTab);
+            schoolDataTab.getTabPane().getTabs().remove(schoolDataTab);
+
+            MailServer server = service.findByMailerEmployee(employee);
+            if (server.getId() != 0) {
+                emailAddress.setText(server.getEmail());
+                emailPassword.setText(server.getPassword());
+                btnTest.setDisable(false);
+            } else {
+                btnTest.setDisable(true);
+            }
+            System.out.println("server employee :: " + server);
+        } else {
+            schoolName.setText(admin.getSchool().getName());
+            MailServer server = service.findByMailer(admin);
+            if (server.getId() != 0) {
+                emailAddress.setText(server.getEmail());
+                emailPassword.setText(server.getPassword());
+                btnTest.setDisable(false);
+            } else {
+                btnTest.setDisable(true);
+            }
+            System.out.println("server Admin :: " + server);
         }
-        System.out.println("server :: " + server);
 
         FXRouter.when("students", "csv.fxml");
         FXRouter.setRouteContainer("students", anchore);
@@ -115,32 +145,71 @@ public class SettingsController implements Initializable {
         service.edit(school);
         System.out.println("updating ");
 
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("Success");
+        alert.setContentText("You have successfully updated your school data");
+        alert.showAndWait();
     }
 
     @FXML
     private void handleTestMailAction(ActionEvent event) throws MessagingException {
         Proxy proxy = new Proxy();
-
         System.out.println("email test sending ... ");
         MailServer mailer = new MailServer();
         MailServerFacadeLocal service = proxy.getMailServer();
-        mailer = service.findByMailer(admin);
-        try {
-            MailSender.sendMail("smtp.gmail.com", "587", mailer.getEmail(),
-                    mailer.getEmail(), mailer.getPassword(), mailer.getEmail(),
-                    "Email test sender",
-                    "Chekicng email service ... ");
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setHeaderText("Success");
-            alert.setContentText("Test email has been sent please check your inbox");
-            alert.showAndWait();
-        } catch (MessagingException ex) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Error");
-            alert.setContentText("An error has occured would you please check\nyou internet connexion");
-            alert.showAndWait();
-            System.out.println(ex.getMessage());
-            System.out.println("mailing failure");
+
+        if (admin != null) {
+            mailer = service.findByMailer(admin);
+            if (mailer != null) {
+                try {
+                    MailSender.sendMail("smtp.gmail.com", "587", mailer.getEmail(),
+                            mailer.getEmail(), mailer.getPassword(), mailer.getEmail(),
+                            "Email test sender",
+                            "Chekicng email services ... ");
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setHeaderText("Success");
+                    alert.setContentText("Test email has been sent please check your inbox");
+                    alert.showAndWait();
+                } catch (MessagingException ex) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText("Error");
+                    alert.setContentText("An error has occured would you please check\nyou internet connexion");
+                    alert.showAndWait();
+                    System.out.println(ex.getMessage());
+                    System.out.println("mailing failure");
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Error");
+                alert.setContentText("Please retry after saving your data");
+                alert.showAndWait();
+            }
+        } else if (employee != null) {
+            mailer = service.findByMailerEmployee(employee);
+            if (mailer != null) {
+                try {
+                    MailSender.sendMail("smtp.gmail.com", "587", mailer.getEmail(),
+                            mailer.getEmail(), mailer.getPassword(), mailer.getEmail(),
+                            "Email test sender",
+                            "Chekicng email services ... ");
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setHeaderText("Success");
+                    alert.setContentText("Test email has been sent please check your inbox");
+                    alert.showAndWait();
+                } catch (MessagingException ex) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText("Error");
+                    alert.setContentText("An error has occured would you please check\nyou internet connexion");
+                    alert.showAndWait();
+                    System.out.println(ex.getMessage());
+                    System.out.println("mailing failure");
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Error");
+                alert.setContentText("Please retry after saving your data");
+                alert.showAndWait();
+            }
         }
 
     }
@@ -160,18 +229,56 @@ public class SettingsController implements Initializable {
 
         Proxy proxy = new Proxy();
         MailServerFacadeLocal service = proxy.getMailServer();
-        MailServer server = new MailServer();
 
-        server.setEmail(email);
-        server.setPassword(password);
-        server.setMailer(admin);
+        if (admin != null) {
+            MailServer MailerData = service.findByMailerEmployee(employee);
+            if (MailerData == null) {
+                MailServer newData = new MailServer();
+                newData.setEmail(email);
+                newData.setPassword(password);
+                newData.setMailer(admin);
+                service.create(newData);
+                btnTest.setDisable(false);
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setHeaderText("Success");
+                alert.setContentText("Now you have successfuly set up your mail data");
+                alert.showAndWait();
+            } else {
+                MailerData.setEmail(email);
+                MailerData.setPassword(password);
+                service.edit(MailerData);
+                btnTest.setDisable(false);
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setHeaderText("Success");
+                alert.setContentText("Now you have successfuly updated your mail data");
+                alert.showAndWait();
+            }
 
-        service.create(server);
+        } else if (employee != null) {
+            MailServer MailerData = service.findByMailerEmployee(employee);
+            if (MailerData == null) {
+                MailServer newData = new MailServer();
+                newData.setEmail(email);
+                newData.setPassword(password);
+                newData.setMailerEmployee(employee);
+                service.create(newData);
+                btnTest.setDisable(false);
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setHeaderText("Success");
+                alert.setContentText("Now you have successfuly set up your mail data");
+                alert.showAndWait();
+            } else {
+                MailerData.setEmail(email);
+                MailerData.setPassword(password);
+                service.edit(MailerData);
+                btnTest.setDisable(false);
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setHeaderText("Success");
+                alert.setContentText("Now you have successfuly updateds up your mail data");
+                alert.showAndWait();
+            }
+        }
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setHeaderText("Success");
-        alert.setContentText("Now you have successfuly set up your mail data");
-        alert.showAndWait();
     }
 
     @FXML
@@ -221,11 +328,10 @@ public class SettingsController implements Initializable {
                 ClassFacadeRemote service = proxy.getClasse();
                 List<Classe> classes = service.findClassByName(classe);
 
-                if (classes.isEmpty()) 
-                {
+                if (classes.isEmpty()) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setHeaderText("Error");
-                    alert.setContentText("Class not found for student " +student.getFirstName() + " "+ student.getLastName());
+                    alert.setContentText("Class not found for student " + student.getFirstName() + " " + student.getLastName());
                     alert.showAndWait();
                 }
 

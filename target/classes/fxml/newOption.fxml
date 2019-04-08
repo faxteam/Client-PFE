@@ -21,7 +21,7 @@
          </font>
       </JFXTextField>
       <JFXButton layoutX="274.0" layoutY="320.0" onAction="#newOption" text="Create" />
-      <JFXComboBox fx:id="combobox" focusColor="#bfe462" layoutX="79.0" layoutY="101.0" onAction="#changeDepList" prefHeight="33.0" prefWidth="272.0" promptText="Select a Site" unFocusColor="#ffde28f0" />
-      <JFXComboBox fx:id="comboboxDepartement" focusColor="#ffde28" layoutX="79.0" layoutY="158.0" prefHeight="33.0" prefWidth="272.0" promptText="Select a Departement" unFocusColor="#ffdf27" />
+      <JFXComboBox fx:id="combobox" focusColor="#bfe462" layoutX="79.0" layoutY="101.0" onAction="#changeDepList" prefHeight="33.0" prefWidth="272.0" promptText="Select a Site" style="-fx-background-color: white;" unFocusColor="#ffde28f0" />
+      <JFXComboBox fx:id="comboboxDepartement" focusColor="#ffde28" layoutX="79.0" layoutY="158.0" prefHeight="33.0" prefWidth="272.0" promptText="Select a Departement" style="-fx-background-color: white;" unFocusColor="#ffdf27" />
    </children>
 </AnchorPane>
