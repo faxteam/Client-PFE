@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="PFEAcceptedPane" prefHeight="548.0" prefWidth="1009.0" stylesheets="@../../../../../../../../Downloads/Library-Assistant-master/src/resources/dark-theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ShowAcceptedPfeController" >
+   <children>
+      <TableView fx:id="table_pfe_accepted" layoutX="-6.0" layoutY="41.0" prefHeight="507.0" prefWidth="1017.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-6.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="41.0">
+         <columns>
+            <TableColumn fx:id="titleCol" prefWidth="75.0" text="Title" />
+            <TableColumn fx:id="respensable_client" maxWidth="2500.0" prefWidth="170.0" text="Respensible Email" />
+            <TableColumn fx:id="discription" prefWidth="205.0" text="Description" />
+            <TableColumn fx:id="fonctionalite" prefWidth="75.0" text="Functionalities" />
+            <TableColumn fx:id="probleme" maxWidth="2800.0" prefWidth="75.0" text="Problematic" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+         <contextMenu>
+            <ContextMenu styleClass="table-context">
+               <items>
+                  <MenuItem mnemonicParsing="false"  text="Refresh" />
+                  <MenuItem mnemonicParsing="false"  text="Edit" />
+                  <MenuItem mnemonicParsing="false" text="Delete" />
+               </items>
+            </ContextMenu>
+         </contextMenu>
+      </TableView>
+      <JFXButton fx:id="btn_show" layoutX="470.0" layoutY="2.0" onAction="#afficher_pfe_accpter" text="Show" />
+   </children>
+</AnchorPane>
