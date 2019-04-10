@@ -7,8 +7,6 @@ package tn.esprit.PFE.GUI;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
-import entities.Admin;
-import entities.Employee;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,6 +24,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import static tn.esprit.PFE.Main.MainApp.admin;
+import static tn.esprit.PFE.Main.MainApp.connected;
 import static tn.esprit.PFE.Main.MainApp.employee;
 import tn.esprit.PFE.Utils.Router.FXRouter;
 
@@ -69,7 +68,7 @@ public class HomeController implements Initializable {
         FXRouter.setRouteContainer("head", adminCentralAnchore);
         FXRouter.setRouteContainer("internshipDirector", adminCentralAnchore);
 
-        if (admin != null) {
+        if (admin != null && connected.equals("admin")) {
             try {
                 FXRouter.goTo("school");
             } catch (IOException ex) {
@@ -77,7 +76,8 @@ public class HomeController implements Initializable {
             }
         }
 
-        if (employee != null) {
+        if (employee != null && connected.equals("employee")) {
+            System.out.println("employee connected trying to open intenship director");
             try {
                 FXRouter.goTo("internshipDirector");
             } catch (IOException ex) {
@@ -279,9 +279,10 @@ public class HomeController implements Initializable {
 
     @FXML
     private void discconnectAction(MouseEvent event) {
-        employee = new Employee();
-        admin = new Admin();
+        //employee = new Employee();
+        //admin = new Admin();
 
+        connected ="";
         try {
 
             String file = "/fxml/Login.fxml";

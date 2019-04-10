@@ -106,8 +106,11 @@ public class newEmployeeController implements Initializable {
         Departement departement = serviceDep.findByName(DepCombo.getValue());
         EmployeeFacadeRemote service = proxy.getEmployeeProxy();
 
+   //     System.out.println("departement " + departement);
         Employee e = new Employee();
-        e.setDepartement(departement);
+        Departement dep = new Departement();
+        dep.setDepartement_id(departement.getDepartement_id());
+        e.setDepartement(dep); 
         e.setEmail(emailString);
         e.setFirstName(nameString);
         e.setLastName(lastNAmeString);
@@ -122,6 +125,7 @@ public class newEmployeeController implements Initializable {
             e.setRole(Employee.Role.professor);
         }
         
+        //System.out.println(e.getFirstName());
         if (service.uniqueEmployee(e)) {
             service.create(e);
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

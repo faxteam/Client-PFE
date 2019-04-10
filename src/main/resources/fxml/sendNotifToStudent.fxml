@@ -56,7 +56,7 @@
                         </AnchorPane>
                      </content>
                   </Tab>
-                  <Tab fx:id="mailTab" closable="false" styleClass="settings-tab" text="Send Notification">
+                  <Tab fx:id="mailTab" closable="false" onSelectionChanged="#notTab" styleClass="settings-tab" text="Send Notification">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="custom-pane">
                            <children>

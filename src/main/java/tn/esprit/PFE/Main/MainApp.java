@@ -18,6 +18,7 @@ public class MainApp extends Application {
     public static final String PATH="tn/esprit/PFE/GUI/";
     public static Admin admin;
     public static Employee employee;
+    public static String connected ="";
     @Override
     public void start(Stage stage) {
         try{

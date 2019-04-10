@@ -239,7 +239,7 @@ public class SchoolController implements Initializable {
         DepartementFacadeRemote service = proxy.getDepartement();
         List<Departement> departements = service.findBySiteName(siteString, school);
         obsDepartement = FXCollections.observableArrayList(departements);
-        System.out.println(departements.get(0).getChef());
+        //System.out.println(departements.get(0).getChef());
         depTable.setItems(obsDepartement);
     }
 

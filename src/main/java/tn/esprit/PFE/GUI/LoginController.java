@@ -23,6 +23,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import static tn.esprit.PFE.Main.MainApp.admin;
+import static tn.esprit.PFE.Main.MainApp.connected;
 import tn.esprit.PFE.Utils.Proxy;
 import tn.esprit.PFE.Utils.Router.FXRouter;
 
@@ -86,6 +87,7 @@ public class LoginController implements Initializable {
         } else if (admn.getEmail().equals("*")) {
             error.setText("Your password is inccorect");
         } else {
+            connected = "admin";
             admin = admn;
             System.out.println("admin connected " + admin);
             //anchore.setPrefSize(800, 600);

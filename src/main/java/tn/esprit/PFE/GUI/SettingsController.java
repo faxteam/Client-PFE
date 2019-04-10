@@ -39,6 +39,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javax.mail.MessagingException;
 import static tn.esprit.PFE.Main.MainApp.admin;
+import static tn.esprit.PFE.Main.MainApp.connected;
 import static tn.esprit.PFE.Main.MainApp.employee;
 import tn.esprit.PFE.Utils.MailSender;
 import tn.esprit.PFE.Utils.Proxy;
@@ -105,7 +106,7 @@ public class SettingsController implements Initializable {
                 btnTest.setDisable(true);
             }
             System.out.println("server employee :: " + server);
-        } else {
+        } else if (admin != null) {
             schoolName.setText(admin.getSchool().getName());
             MailServer server = service.findByMailer(admin);
             if (server.getId() != 0) {
@@ -230,9 +231,9 @@ public class SettingsController implements Initializable {
         Proxy proxy = new Proxy();
         MailServerFacadeLocal service = proxy.getMailServer();
 
-        if (admin != null) {
+        if (admin != null && connected.equals("admin")) {
             MailServer MailerData = service.findByMailerEmployee(employee);
-            if (MailerData == null) {
+            if (MailerData.getId() == 0) {
                 MailServer newData = new MailServer();
                 newData.setEmail(email);
                 newData.setPassword(password);
@@ -254,22 +255,26 @@ public class SettingsController implements Initializable {
                 alert.showAndWait();
             }
 
-        } else if (employee != null) {
+        } else if (employee != null && connected.equals("employee")) {
             MailServer MailerData = service.findByMailerEmployee(employee);
-            if (MailerData == null) {
+            if (MailerData.getId() == 0) {
+                //System.out.println("employee " + employee);
                 MailServer newData = new MailServer();
                 newData.setEmail(email);
                 newData.setPassword(password);
                 newData.setMailerEmployee(employee);
                 service.create(newData);
+                System.out.println(newData);
                 btnTest.setDisable(false);
+
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setHeaderText("Success");
-                alert.setContentText("Now you have successfuly set up your mail data");
+                alert.setContentText("Now you have successfully set up your mail data");
                 alert.showAndWait();
             } else {
                 MailerData.setEmail(email);
                 MailerData.setPassword(password);
+                //MailerData.setMailerEmployee(employee);
                 service.edit(MailerData);
                 btnTest.setDisable(false);
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -331,20 +336,20 @@ public class SettingsController implements Initializable {
                 if (classes.isEmpty()) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setHeaderText("Error");
-                    alert.setContentText("Class not found for student " + student.getFirstName() + " " + student.getLastName());
+                    alert.setContentText("Class not found for student " + name + " " + lastName);
                     alert.showAndWait();
+                } else {
+                    student.setFirstName(name);
+                    student.setLastName(lastName);
+                    student.setCredit(Integer.parseInt(credit));
+                    student.setPersonalEmail(PersoEmail);
+                    student.setProfessionalEmail(ProfEmail);
+                    student.setPassword(ident);
+                    student.setClasse(classes.get(0));
+                    student.setIdent(pwd);
+                    students.add(student);
                 }
 
-                student.setFirstName(name);
-                student.setLastName(lastName);
-                student.setCredit(Integer.parseInt(credit));
-                student.setPersonalEmail(PersoEmail);
-                student.setProfessionalEmail(ProfEmail);
-                student.setPassword(ident);
-                student.setClasse(classes.get(0));
-                student.setIdent(pwd);
-
-                students.add(student);
                 //dataList.add(record);
             }
         } catch (FileNotFoundException ex) {

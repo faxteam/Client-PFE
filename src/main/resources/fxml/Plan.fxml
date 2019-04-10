@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<StackPane fx:id="rootContainer" prefHeight="400.0" prefWidth="581.0" stylesheets="/styles/dark-theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.PFE.GUI.PlanController">
+   <children>
+      <AnchorPane fx:id="anchore" prefHeight="410.0" prefWidth="581.0">
+         <children>
+            <TabPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="414.0" prefWidth="581.0">
+               <tabs>
+                  <Tab fx:id="schoolDataTab" closable="false" styleClass="settings-tab" text="Plan defense">
+                     <content>
+                        <AnchorPane id="AnchorPane" prefHeight="304.0" prefWidth="402.0" styleClass="custom-pane">
+                           <children>
+                              <VBox layoutX="61.0" prefHeight="354.0" prefWidth="455.0" spacing="10.0" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="69.0" prefWidth="425.0">
+                                       <children>
+                                          <Text fill="#e8cf41" strokeType="OUTSIDE" strokeWidth="0.0" text="Plan an internship defense">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="425.0">
+                                       <children>
+                                          <Text fx:id="student" fill="#e8cf41" strokeType="OUTSIDE" strokeWidth="0.0" text="Student">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="12.0" prefWidth="425.0">
+                                       <children>
+                                          <Text fill="#e8cf41" strokeType="OUTSIDE" strokeWidth="0.0" text="Select A date">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="425.0">
+                                       <children>
+                                          <JFXDatePicker fx:id="date" prefHeight="33.0" prefWidth="305.0" style="-fx-background-color: white;" />
+                                          <VBox prefHeight="38.0" prefWidth="18.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="20.0" prefWidth="425.0">
+                                       <children>
+                                          <Text fill="#e8cf41" strokeType="OUTSIDE" strokeWidth="0.0" text="Select President">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="425.0">
+                                       <children>
+                                          <JFXComboBox fx:id="president" prefHeight="33.0" prefWidth="303.0" style="-fx-background-color: white;" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="43.0" prefWidth="512.0" spacing="25.0">
+                                       <children>
+                                          <JFXButton onAction="#addDefense" prefHeight="100.0" prefWidth="100.0" text="Confirm" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

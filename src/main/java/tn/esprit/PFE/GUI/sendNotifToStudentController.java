@@ -25,9 +25,12 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
@@ -38,7 +41,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import javax.mail.MessagingException;
+import org.controlsfx.control.Notifications;
 import static tn.esprit.PFE.Main.MainApp.employee;
+import tn.esprit.PFE.Utils.MailSender;
 import tn.esprit.PFE.Utils.Proxy;
 
 /**
@@ -74,12 +81,12 @@ public class sendNotifToStudentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        this.checkForMailServerConfig();
+        // 
         initStudentList();
         loadListAllStudents();
-        
-    }    
-    
+
+    }
+
     private void checkForMailServerConfig() {
         JFXButton button = new JFXButton("Okay");
         button.setOnAction((ActionEvent event) -> {
@@ -89,7 +96,7 @@ public class sendNotifToStudentController implements Initializable {
         MailServerFacadeLocal service = proxy.getMailServer();
         MailServer mailServerInfo = service.findByMailerEmployee(employee);
         System.out.println("mailserver  " + mailServerInfo);
-        if (mailServerInfo == null) {
+        if (mailServerInfo.getId() == 0) {
             System.out.println("Mail server not configured");
             sendNotifToStudentController.showMaterialDialog(rootContainer, anchore, ImmutableList.of(button), "Mail server is not configured", "Please configure mail server first.\nIt is available under Settings");
         }
@@ -99,22 +106,52 @@ public class sendNotifToStudentController implements Initializable {
     private void sendEmail(ActionEvent event) {
         String subjectString = subject.getText();
         String contentString = content.getText();
-        
-        JFXButton button = new JFXButton("Okay");
-        
-        if(subjectString.equals("") || contentString.equals(""))
-        {
+
+        if (subjectString.equals("") || contentString.equals("")) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Please verify your missing data");
+            return;
         }
-        
+
+        Proxy proxy = new Proxy();
+        System.out.println("email test sending ... ");
+
+        MailServerFacadeLocal service = proxy.getMailServer();
+        MailServer mailer = service.findByMailerEmployee(employee);
+        List<Student> students = this.retrieveList();
+
+        for (Student S : students) {
+            try {
+                MailSender.sendMail("smtp.gmail.com", "587", mailer.getEmail(),
+                        mailer.getEmail(), mailer.getPassword(), S.getProfessionalEmail(),
+                        subjectString, contentString);
+                Notifications notificationBuilder =  Notifications.create()
+                        .title("Success")
+                        .text("Emails has been sent successfully")
+                        .graphic(null)
+                        .hideAfter(Duration.seconds(2))
+                        .position(Pos.BOTTOM_RIGHT);
+                
+                notificationBuilder.show();
+                
+            } catch (MessagingException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Error");
+                alert.setContentText("An error has occured! Would you please check\nyour internet connexion");
+                alert.showAndWait();
+            }
+        }
     }
-    
+
     private void initStudentList() {
         Colident.setCellValueFactory(new PropertyValueFactory<>("ident"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("professionalEmail"));
         colClass.setCellValueFactory(new PropertyValueFactory<>("classe"));
         colCredit.setCellValueFactory(new PropertyValueFactory<>("credit"));
     }
-    
+
     private List<Student> retrieveList() {
         Proxy proxy = new Proxy();
         StudentFacadeRemote service = proxy.getStudent();
@@ -123,15 +160,15 @@ public class sendNotifToStudentController implements Initializable {
         List<Student> students = service.findListByClass(classes);
 
         List<Student> stds = new ArrayList<>();
-        for(Student s : students)
-        {
-            if(s.getForm() == null)
+        for (Student s : students) {
+            if (s.getForm() == null) {
                 stds.add(s);
+            }
         }
-        
+
         return stds;
     }
-    
+
     private void loadListAllStudents() {
         List<Student> students = this.retrieveList();
         obsStudent = FXCollections.observableArrayList(students);
@@ -140,6 +177,7 @@ public class sendNotifToStudentController implements Initializable {
 
     public static void showMaterialDialog(StackPane root, Node nodeToBeBlurred, List<JFXButton> controls, String header, String body) {
         BoxBlur blur = new BoxBlur(3, 3, 3);
+        System.out.println("adding ");
         if (controls.isEmpty()) {
             controls.add(new JFXButton("Okay"));
         }
@@ -161,5 +199,10 @@ public class sendNotifToStudentController implements Initializable {
             nodeToBeBlurred.setEffect(null);
         });
         nodeToBeBlurred.setEffect(blur);
+    }
+
+    @FXML
+    private void notTab(Event event) {
+        this.checkForMailServerConfig();
     }
 }

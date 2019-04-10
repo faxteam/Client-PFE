@@ -14,7 +14,7 @@
    <children>
       <JFXTabPane layoutX="3.0" layoutY="-1.0" prefHeight="550.0" prefWidth="634.0">
          <tabs>
-            <Tab text="Students">
+            <Tab onSelectionChanged="#studentTab" text="Students">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -36,6 +36,23 @@
                      </children>
                   </AnchorPane>
               </content>
+            </Tab>
+            <Tab onSelectionChanged="#pfeTab" text="PFE Form">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="FormTable" layoutY="85.0" onMouseClicked="#getSelectedForm" prefHeight="406.0" prefWidth="634.0">
+                           <columns>
+                              <TableColumn fx:id="Id" prefWidth="106.0" text="ID" />
+                              <TableColumn fx:id="studentEmail" prefWidth="181.0" text="Student Email" />
+                              <TableColumn fx:id="colCategory" prefWidth="85.0" text="Category" />
+                              <TableColumn fx:id="state" prefWidth="111.0" text="State" />
+                           </columns>
+                        </TableView>
+                        <JFXButton fx:id="planBtn" layoutX="65.0" layoutY="33.0" onAction="#plan" text="Plan Defense " />
+                     </children>
+                  </AnchorPane>
+               </content>
             </Tab>
          </tabs>
       </JFXTabPane>

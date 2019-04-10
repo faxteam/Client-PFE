@@ -129,8 +129,14 @@ public class SignupController implements Initializable {
         }
 
         System.out.println("admin :: " + admin);
+        Long idSchool = serviceSchool.createNew(schol);
+        admin.setSchool(schol);
+        
+        School added = serviceSchool.find(idSchool);
+        
+        admin.setSchool(added); 
         serviceAdmin.create(admin);
-        serviceSchool.create(schol);
+        
 
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Success");

@@ -83,7 +83,7 @@ public class AssignController implements Initializable {
         DepartementFacadeRemote service = proxy.getDepartement();
         Departement d = service.findByName(combo.getValue());
 
-        d.setChef((Employee) FXRouter.getData());
+       // d.setChef((Employee) FXRouter.getData());
         service.edit(d);
         
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
